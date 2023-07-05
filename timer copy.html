@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Foldit:wght@500&display=swap" rel="stylesheet">
+    <style>
+        #ctr {
+            font-size: 9rem;
+            font-family: 'Foldit', cursive;
+            text-align: center;
+            border: 3px solid rgb(0, 230, 111);
+            border-radius: 1rem;
+
+        }
+        
+        button{
+            background-color: #8b8b8b;
+            border: 2px solid rgb(52, 57, 55);
+            border-radius: 0.4rem;
+            font-size: 1.5rem;
+            margin: 1.5em 2em;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        @media only screen and (max-width:1318px) {
+            #ctr{
+                font-size: 3.5rem;
+            }
+            #start, #pause,#resume,#reset{
+                font-size: 15px;
+                width: 55%;
+            }
+            
+        }
+
+        
+    </style>
+
+</head>
+<body style="background: rgb(16,54,24);
+background: linear-gradient(90deg, rgba(16,54,24,1) 0%, rgba(15,133,40,1) 50%, rgba(16,54,24,1) 100%);">
+    <div id="ctr" style="width:40%;margin: 100px auto; color: white;"><span id="min">00</span>:<span id="sec">00</span>:<span id="ms">00</span>
+    <div><button id="start">Start</button><button id="pause" style="display: none;">Pause</button><button id="resume" style="display: none;">Resume</button><button id="reset" style="display: none;"><span id="change">Reset</span></button></div></div>
+    
+</body>
+<script>
+    var min=00;
+    var sec=00;
+    var ms=00;
+
+
+    document.getElementById("start").addEventListener("click",function(){
+        document.getElementById("start").style.display="none"
+        var myinterval=setInterval(timer,10);
+        document.getElementById("pause").style.display="inline-block"
+        document.getElementById("reset").style.display="inline-block"
+        function timer(){
+            // console.log("hello")
+            ms+=1
+        
+            if ((ms/100)==1){
+                ms=ms%100
+                sec+=1
+            
+            }
+            if ((sec/60)==1){
+                sec=sec%60
+                min+=1
+                strmin=min.toString()
+                if(strmin.length==1){
+                    strmin="0"+strmin
+                }
+                document.getElementById("min").innerText=strmin;
+            }
+            strsec=sec.toString()
+                if(strsec.length==1){
+                    strsec="0"+strsec
+                }
+            strms=ms.toString()
+            if(strms.length==1){
+                strms="0"+strms
+            }
+            document.getElementById("sec").innerText=strsec;
+            document.getElementById("ms").innerText=strms;
+        
+        }
+        document.getElementById("pause").addEventListener("click",function(){
+            document.getElementById("pause").style.display="none";
+            document.getElementById("resume").style.display="inline-block";
+            document.getElementById("change").innerText="Reset";
+
+            clearInterval(myinterval)        
+        })
+        document.getElementById("resume").addEventListener("click",function(){
+            document.getElementById("resume").style.display="none";
+            document.getElementById("pause").style.display="inline-block";
+            document.getElementById("change").innerText="Restart";
+            myinterval=setInterval(timer,10);       
+        })
+        document.getElementById("reset").addEventListener("click",function(){
+            min=00;
+            sec=00;
+            ms=00;         
+            document.getElementById("ms").innerText="00";
+            document.getElementById("sec").innerText="00";
+            document.getElementById("min").innerText="00"; 
+        })
+        
+        
+
+    })
+
+
+    // -----this is basic method1----
+    // setInterval(timer,10);
+    // function timer(){
+    //     // console.log("hello")
+    //     ms+=1
+        
+    //     if ((ms/100)==1){
+    //         ms=ms%100
+    //         sec+=1
+            
+    //     }
+    //     if ((sec/60)==1){
+    //         sec=sec%60
+    //         min+=1
+    //         document.getElementById("min").innerText=min;
+    //     }
+    //     document.getElementById("sec").innerText=sec;
+    //     document.getElementById("ms").innerText=ms;
+        
+    // }
+    // ----this is basic method2----
+    // var myinterval=setInterval(timer,10);
+    // function timer(){
+    //     // console.log("hello")
+    //     ms+=1
+        
+    //     if ((ms/100)==1){
+    //         ms=ms%100
+    //         sec+=1
+            
+    //     }
+    //     if ((sec/60)==1){
+    //         sec=sec%60
+    //         min+=1
+    //         strmin=min.toString()
+    //         if(strmin.length==1){
+    //             strmin="0"+strmin
+    //         }
+    //         document.getElementById("min").innerText=strmin;
+    //     }
+    //     strsec=sec.toString()
+    //         if(strsec.length==1){
+    //             strsec="0"+strsec
+    //         }
+    //     strms=ms.toString()
+    //         if(strms.length==1){
+    //             strms="0"+strms
+    //         }
+    //     document.getElementById("sec").innerText=strsec;
+    //     document.getElementById("ms").innerText=strms;
+        
+    // }
+    // document.getElementById("pause").addEventListener("click",function(){
+    //     document.getElementById("pause").style.display="none";
+    //     document.getElementById("resume").style.display="inline-block";
+    //     clearInterval(myinterval)
+        
+    // })
+    // document.getElementById("resume").addEventListener("click",function(){
+    //     document.getElementById("resume").style.display="none";
+    //     document.getElementById("pause").style.display="inline-block";
+    //     myinterval=setInterval(timer,10);
+        
+        
+    // })
+    // document.getElementById("reset").addEventListener("click",function(){
+    //      min=00;
+    //      sec=00;
+    //      ms=00;
+         
+    //      document.getElementById("ms").innerText="00";
+    //      document.getElementById("sec").innerText="00";
+    //      document.getElementById("min").innerText="00";
+         
+         
+    // })
+    
+
+        
+    // -----this is basic method3----
+    // setInterval(function()  {
+        // ms+=1
+        // if ((ms/100)==1){
+        //     ms=ms%100
+        //     sec+=1
+        //     document.getElementById("sec").innerText=sec;
+        // }
+        // if ((sec/60)==1){
+        //     sec=sec%60
+        //     min+=1
+        //     document.getElementById("min").innerText=min;
+        // }
+        // document.getElementById("ms").innerText=ms;
+
+        
+        
+    // }, 10);
+    
+    
+</script>
+</html>
